@@ -6,13 +6,13 @@ const { products } = require('../data/products');
 
 // POST /api/orders — place an order from the current cart
 router.post('/', (req, res) => {
-  const { customerName, address, phone } = req.body;
+  const { name, email, address, phone } = req.body;
 
   // Validate required fields
-  if (!customerName || !address || !phone) {
+  if (!name || !address || !phone) {
     return res.status(400).json({
       success: false,
-      error: 'customerName, address, and phone are required',
+      error: 'name, address, and phone are required',
     });
   }
 
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
   const totalAmount = +orderItems.reduce((sum, item) => sum + item.subtotal, 0).toFixed(2);
 
   // Create order
-  const order = orderStore.create(orderItems, totalAmount, { customerName, address, phone });
+  const order = orderStore.create(orderItems, totalAmount, { name, email, address, phone });
 
   // Clear cart after successful order
   cartStore.clear();

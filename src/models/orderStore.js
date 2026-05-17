@@ -19,9 +19,12 @@ class OrderStore {
       id: uuidv4().split('-')[0].toUpperCase(),
       items: [...items],
       totalAmount,
-      customerName: customerInfo.customerName,
-      address: customerInfo.address,
-      phone: customerInfo.phone,
+      customerInfo: {
+        name: customerInfo.name,
+        email: customerInfo.email,
+        address: customerInfo.address,
+        phone: customerInfo.phone,
+      },
       status: 'confirmed',
       createdAt: new Date().toISOString(),
     };
